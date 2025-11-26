@@ -742,7 +742,161 @@
     .kv div{padding:6px 0; border-bottom:1px solid var(--line)}
     .kv div:nth-child(odd){color:var(--muted)}
 
-  
+      /* Availability modal */
+    .availability-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.55);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      z-index:1100;
+    }
+    .availability-overlay[hidden]{
+      display:none;
+    }
+    .availability-modal{
+      background:#fff;
+      border-radius:16px;
+      max-width:900px;
+      width:100%;
+      max-height:100%;
+      box-shadow:0 18px 40px rgba(0,0,0,.35);
+      display:flex;
+      flex-direction:column;
+      padding:20px 20px 18px;
+      position:relative;
+    }
+    .availability-close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:32px;
+      height:32px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+    }
+    .availability-close svg{
+      width:16px;
+      height:16px;
+    }
+    .availability-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1.3fr) minmax(0,1.7fr);
+      gap:18px;
+      align-items:flex-start;
+    }
+    .availability-media img{
+      width:100%;
+      border-radius:12px;
+      object-fit:cover;
+      aspect-ratio:1 / 1;
+      display:block;
+    }
+    .availability-content{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .availability-name{
+      margin:0 0 4px;
+      font-size:1.2rem;
+      font-weight:600;
+    }
+    .availability-desc{
+      margin:0 0 8px;
+      font-size:.95rem;
+      color:var(--muted);
+    }
+    .availability-form{
+      display:grid;
+      gap:10px;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      margin-bottom:4px;
+    }
+    .availability-field{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      font-size:.85rem;
+    }
+    .availability-field label{
+      color:var(--muted);
+    }
+    .availability-field input,
+    .availability-field select{
+      border-radius:10px;
+      border:1px solid var(--line);
+      padding:8px 10px;
+      font:inherit;
+    }
+    .availability-price-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:4px;
+      font-size:.9rem;
+    }
+    .availability-price{
+      font-weight:600;
+    }
+    .availability-fine{
+      font-size:.8rem;
+      color:var(--muted);
+    }
+    .availability-footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:8px;
+      padding-top:10px;
+      border-top:1px solid var(--line);
+    }
+    .availability-cta{
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      margin-top:0;
+    }
+    .btn.availability-primary{
+      padding-inline:20px;
+    }
+    .btn.availability-secondary{
+      background:#fff;
+      color:var(--ink);
+      border-color:var(--line);
+      box-shadow:none;
+    }
+
+    @media (max-width:720px){
+      .availability-overlay{
+        padding:14px;
+      }
+      .availability-modal{
+        padding:16px 14px 14px;
+      }
+      .availability-layout{
+        grid-template-columns:minmax(0,1fr);
+      }
+      .availability-media img{
+        aspect-ratio:4 / 3;
+      }
+      .availability-form{
+        grid-template-columns:1fr;
+      }
+      .availability-cta{
+        flex-direction:column-reverse;
+        align-items:stretch;
+      }
+    }
     /* Footer */
     footer{
       border-top:1px solid var(--line);
@@ -1368,6 +1522,60 @@
     </div>
   </footer>
 
+    <div class="availability-overlay" data-availability-overlay hidden>
+    <div class="availability-modal" role="dialog" aria-modal="true" aria-labelledby="availability-title">
+      <button class="availability-close" type="button" aria-label="Close availability" data-availability-close>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="availability-layout">
+        <div class="availability-media">
+          <img src="" alt="" data-availability-img>
+        </div>
+        <div class="availability-content">
+          <h2 id="availability-title" class="availability-name" data-availability-name>Pass name</h2>
+          <p class="availability-desc" data-availability-desc></p>
+          <div class="availability-form">
+            <div class="availability-field">
+              <label for="availability-date">Date</label>
+              <input type="date" id="availability-date">
+            </div>
+            <div class="availability-field">
+              <label for="availability-guests">Adults</label>
+              <select id="availability-guests">
+                <option value="1">1 adult</option>
+                <option value="2">2 adults</option>
+                <option value="3">3 adults</option>
+                <option value="4">4 adults</option>
+              </select>
+            </div>
+            <div class="availability-field">
+              <label for="availability-kids">Children</label>
+              <select id="availability-kids">
+                <option value="0">No children</option>
+                <option value="1">1 child</option>
+                <option value="2">2 children</option>
+                <option value="3">3 children</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="availability-footer-row">
+        <div>
+          <div class="availability-price" data-availability-price></div>
+          <div class="availability-fine" data-availability-fine>Select a date to see pricing.</div>
+        </div>
+        <div class="availability-cta">
+          <button type="button" class="btn availability-secondary" data-availability-close>Close</button>
+          <button type="button" class="btn availability-primary">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="nav-overlay" data-nav-overlay hidden></div>
   <nav class="nav-drawer" aria-label="Main navigation" aria-hidden="true" data-nav-drawer>
     <div class="nav-drawer-header">
@@ -1526,6 +1734,137 @@ if(dateInput && chipButtons.length){
     });
   });
 }
+
+
+      // Availability modal
+      // Availability modal
+      const availabilityOverlay = document.querySelector('[data-availability-overlay]');
+      const availabilityImg = availabilityOverlay ? availabilityOverlay.querySelector('[data-availability-img]') : null;
+      const availabilityName = availabilityOverlay ? availabilityOverlay.querySelector('[data-availability-name]') : null;
+      const availabilityDesc = availabilityOverlay ? availabilityOverlay.querySelector('[data-availability-desc]') : null;
+      const availabilityPrice = availabilityOverlay ? availabilityOverlay.querySelector('[data-availability-price]') : null;
+      const availabilityFine = availabilityOverlay ? availabilityOverlay.querySelector('[data-availability-fine]') : null;
+      const availabilityDateInputModal = document.getElementById('availability-date');
+      const availabilityAdults = document.getElementById('availability-guests');
+      const availabilityKids = document.getElementById('availability-kids');
+      const availabilityCloseButtons = availabilityOverlay ? availabilityOverlay.querySelectorAll('[data-availability-close]') : [];
+
+      function openAvailability(card){
+        if(!availabilityOverlay) return;
+        const img = card.querySelector('.media img');
+        const title = card.querySelector('.title');
+        const desc = card.querySelector('.desc');
+        const price = card.querySelector('.price');
+
+        if(img && availabilityImg){
+          availabilityImg.src = img.src;
+          availabilityImg.alt = img.alt || '';
+        }
+        if(availabilityName && title){
+          availabilityName.textContent = title.textContent.trim();
+        }
+        if(availabilityDesc && desc){
+          availabilityDesc.textContent = desc.textContent.trim();
+        }
+             let baseAdultPrice = 0;
+        if(price){
+          const match = price.textContent.match(/(\d+(\.\d+)?)/);
+          if(match){
+            baseAdultPrice = parseFloat(match[1]);
+          }
+        }
+        if(availabilityOverlay && baseAdultPrice){
+          availabilityOverlay.dataset.baseAdultPrice = String(baseAdultPrice);
+        }
+
+        // Reset modal controls and pricing display
+        if(availabilityDateInputModal){
+          availabilityDateInputModal.value = '';
+        }
+        if(availabilityAdults){
+          availabilityAdults.value = '1';
+        }
+        if(availabilityKids){
+          availabilityKids.value = '0';
+        }
+        if(availabilityPrice){
+          availabilityPrice.textContent = '';
+        }
+        if(availabilityFine){
+          availabilityFine.textContent = 'Select a date to see pricing.';
+        }
+
+        availabilityOverlay.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeAvailability(){
+        if(!availabilityOverlay) return;
+        availabilityOverlay.hidden = true;
+        document.body.style.overflow = '';
+      }
+
+            function updateAvailabilityTotal(){
+        if(!availabilityOverlay || !availabilityPrice || !availabilityDateInputModal) return;
+        const baseStr = availabilityOverlay.dataset.baseAdultPrice;
+        const baseAdult = baseStr ? parseFloat(baseStr) : 0;
+        if(!baseAdult){
+          availabilityPrice.textContent = '';
+          if(availabilityFine) availabilityFine.textContent = '';
+          return;
+        }
+        // Require a date before showing pricing
+        if(!availabilityDateInputModal.value){
+          availabilityPrice.textContent = '';
+          if(availabilityFine) availabilityFine.textContent = 'Select a date to see pricing.';
+          return;
+        }
+        const adults = availabilityAdults ? (parseInt(availabilityAdults.value,10) || 0) : 0;
+        const kids = availabilityKids ? (parseInt(availabilityKids.value,10) || 0) : 0;
+        const childRate = Math.round(baseAdult * 0.5); // example: child price is 50% of adult
+
+        const total = adults * baseAdult + kids * childRate;
+        availabilityPrice.textContent = `Total: $${total.toFixed(0)}`;
+        if(availabilityFine){
+          availabilityFine.textContent = `$${baseAdult.toFixed(0)} per adult • $${childRate.toFixed(0)} per child`;
+        }
+      }
+
+      const availabilityButtons = document.querySelectorAll('.availability-btn');
+      availabilityButtons.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const card = btn.closest('.card');
+          if(card) openAvailability(card);
+        });
+      });
+
+            if(availabilityDateInputModal){
+        availabilityDateInputModal.addEventListener('change', updateAvailabilityTotal);
+      }
+      if(availabilityAdults){
+        availabilityAdults.addEventListener('change', updateAvailabilityTotal);
+      }
+      if(availabilityKids){
+        availabilityKids.addEventListener('change', updateAvailabilityTotal);
+      }
+
+      availabilityCloseButtons.forEach(btn=>{
+        btn.addEventListener('click', closeAvailability);
+      });
+
+      if(availabilityOverlay){
+        availabilityOverlay.addEventListener('click', (e)=>{
+          if(e.target === availabilityOverlay){
+            closeAvailability();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape'){
+          closeAvailability();
+        }
+      });
 
       // Lightbox for hero gallery images
       const lightboxImages = document.querySelectorAll('.hero [data-lightbox-img]');
