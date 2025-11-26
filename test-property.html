@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Wix+Madefor+Display:wght@400..800&family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&family=Zalando+Sans+SemiExpanded:ital,wght@0,200..900;1,200..900&family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+  <title>JW Marriott Scottsdale Camelback Inn – iDaypass</title>
+  <style>
+    :root{
+      --bg:#ffffff;          /* light warm background */
+      --card:#FFFFFF;        /* white cards */
+      --ink:#2A2A2A;         /* dark charcoal headings */
+      --muted:#787e89;       /* softer taupe text */
+      --line:#E6E2DA;        /* subtle warm divider */
+
+      --brand:#665f9e;       /* PRIMARY purple (buttons, CTAs) */
+      --brand-ink:#FFFFFF;   /* white text on buttons */
+
+      --accent:#eb986e;      /* secondary accent */
+      --chip:#f6f3ed;        /* warm sand for chips/pills */
+
+      --footer:#3D334B;      /* deep purple-grey footer */
+      --hero-grad:linear-gradient(
+        180deg,
+        rgba(0,0,0,0.0),
+        rgba(45,55,105,0.38) 60%,
+        rgba(30,37,78,0.82)
+      );
+      --radius:14px;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --shadow-sm:0 4px 16px rgba(0,0,0,.06);
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Zalando Sans', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background:var(--bg);
+      line-height:1.45;
+    }
+
+    h1{
+      font-family:'Zalando Sans Expanded', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-weight:300;
+      font-size:1.7rem;
+      letter-spacing:.04em;
+    }
+
+    /* Site Header */
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.96);
+      backdrop-filter:saturate(160%) blur(8px);
+      border-bottom:1px solid var(--line);
+    }
+    .site-header .bar{
+      display:grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items:center;
+      height:64px;
+    }
+    .icon-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      border-radius:10px;
+      border:0px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      stroke:var(--ink);
+      color:var(--ink);
+      -webkit-tap-highlight-color:transparent;
+    }
+    .icon-btn:hover{
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-sm);
+    }
+    .icon-btn svg{width:22px; height:22px}
+    .logo{display:block; height:38px; shape-rendering:crispEdges;}
+    .header-left{justify-self:start}
+    .header-center{justify-self:center}
+    .header-right{justify-self:end}
+
+    /* Slide-out navigation */
+    .nav-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.35);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease;
+      z-index:9998;
+    }
+    .nav-overlay.is-visible{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .nav-drawer{
+      position:fixed;
+      inset:0 auto 0 0;
+      width:320px;
+      max-width:80%;
+      background:#fff;
+      box-shadow:var(--shadow);
+      transform:translateX(-100%);
+      transition:transform .25s ease;
+      z-index:9999;
+      display:flex;
+      flex-direction:column;
+    }
+    .nav-drawer.is-open{
+      transform:translateX(0);
+    }
+    .nav-drawer-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 20px;
+      border-bottom:1px solid var(--line);
+    }
+    .nav-drawer-logo{
+      height:28px;
+      width:auto;
+      display:block;
+    }
+    .nav-drawer-close{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:32px;
+      height:32px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .nav-drawer-close svg{
+      width:18px;
+      height:18px;
+      stroke:var(--ink);
+    }
+    .nav-drawer-body{
+      padding:16px 20px 20px;
+      overflow:auto;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+    .nav-section-title{
+      font-size:.8rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+    .nav-list{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .nav-list a{
+      color:var(--ink);
+      text-decoration:none;
+      font-size:.95rem;
+    }
+    .nav-list a:hover{
+      text-decoration:underline;
+    }
+    .nav-list-inline{
+      flex-direction:row;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .nav-list-inline a{
+      font-size:.85rem;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:var(--chip);
+    }
+    .nav-list-inline a:hover{
+      background:#fff;
+    }
+    .nav-footer-meta{
+      font-size:.8rem;
+      color:var(--muted);
+    }
+    .nav-footer-meta a{
+      color:var(--muted);
+      text-decoration:none;
+    }
+    .nav-footer-meta a:hover{
+      text-decoration:underline;
+      color:var(--ink);
+    }
+
+    /* Header / Breadcrumbs */
+    .wrap{max-width:var(--max); margin-inline:auto; padding-inline:20px}
+    .breadcrumbs{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:space-between;
+      font-size:.875rem;
+      color:var(--muted);
+      padding:14px 0;
+      overflow:auto;
+      scrollbar-width:none;
+    }
+    .breadcrumbs::-webkit-scrollbar{display:none}
+    .breadcrumbs a{color:inherit; text-decoration:none}
+    .breadcrumbs .sep{opacity:.6}
+    .breadcrumbs .here{color:var(--ink); font-weight:600}
+    .crumbs-left{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex:1 1 auto;
+    }
+    .crumbs-right{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-shrink:0;
+    }
+    .home-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:inherit;
+      text-decoration:none;
+      flex-shrink:0;
+    }
+    .home-link svg{
+      width:14px;
+      height:14px;
+      stroke:var(--ink);
+    }
+    .home-link:hover{
+      box-shadow:var(--shadow-sm);
+    }
+    .property-header{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      margin-top:20px;
+      margin-bottom:20px;
+    }
+    .property-header h1{
+      margin:0;
+    }
+    .map-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:inherit;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .map-link svg{
+      width:16px;
+      height:16px;
+      stroke:var(--accent);
+    }
+    .map-link:hover{box-shadow:var(--shadow-sm)}
+
+    .link-icon{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      color:var(--accent);
+      cursor:pointer;
+      font-weight:500;
+      text-decoration:none;
+    }
+    .link-icon svg{width:14px; height:14px}
+    .link-icon:hover{text-decoration:underline}
+
+    /* Hero (interior-style, not edge-to-edge) */
+    .hero-wrap{
+      padding-bottom:0;
+      background:transparent;
+    }
+    .hero{
+      position:relative;
+      border-radius:calc(var(--radius) + 6px);
+      overflow:hidden;
+      margin-bottom:0;
+      background:#000;
+      aspect-ratio:16/8;
+      border-bottom:none;
+    }
+    .lightbox-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.75);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:999;
+      padding:24px;
+    }
+    .lightbox-inner{
+      position:relative;
+      max-width:min(1000px, 100%);
+      max-height:100%;
+    }
+    .lightbox-inner img{
+      display:block;
+      max-width:100%;
+      max-height:100%;
+      border-radius:12px;
+      box-shadow:0 18px 40px rgba(0,0,0,.4);
+    }
+    .lightbox-close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:32px;
+      height:32px;
+      border-radius:999px;
+      border:none;
+      background:rgba(0,0,0,.65);
+      color:#fff;
+      cursor:pointer;
+    }
+    .lightbox-close svg{
+      width:16px;
+      height:16px;
+    }
+    .hero img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter:saturate(1.1) contrast(1.1) opacity(.96);
+    }
+    .hero-content{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      color:#fff;
+      padding:26px 24px;
+      gap:10px;
+      z-index:2;
+    }
+    .property-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      max-width:fit-content;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.28);
+      padding:6px 10px;
+      border-radius:999px;
+      backdrop-filter:saturate(160%) blur(2px);
+      font-size:.8rem;
+      white-space:nowrap;
+    }
+    .hero .propertylink{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      font-size:.95rem;
+    }
+    .hero .propertylink span{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      cursor:pointer;
+    }
+    .hero .propertylink span::after{
+      content:"›";
+      font-size:.9em;
+    }
+    .hero .propertylink span:hover{
+      letter-spacing:.5px;
+      transition:letter-spacing 200ms ease-in-out;
+    }
+
+    /* Sticky Booking Bar */
+    .booking{
+      position:sticky;
+      top:64px;
+      z-index:40;
+      background:#ffffff;
+      backdrop-filter:none;
+      border-bottom:none;
+    }
+    .booking .bar{
+      display:grid;
+      gap:10px;
+      grid-template-columns: 1.2fr auto;
+      padding:0 0 16px 0;
+      background:transparent;
+      border:none;
+    }
+    .field{
+  display:flex;
+  align-items:center;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:6px 10px;
+  box-shadow:var(--shadow-sm);
+}
+
+.field-date{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.field-date-main{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:0;
+}
+
+.field-date-main label{
+  font-size:.8rem;
+  color:var(--muted);
+}
+
+.field-date-main input[type="date"]{
+  border:none;
+  outline:none;
+  background:transparent;
+  font:inherit;
+  color:inherit;
+  min-width:0;
+  width:160px; /* controls how “long” the selector feels */
+}
+
+.date-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.date-chip{
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:var(--chip);
+  padding:4px 10px;
+  font-size:.8rem;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.date-chip.is-active{
+  border-color:var(--brand);
+  background:rgba(102,95,158,0.08);
+  color:var(--brand);
+}
+    .field label{font-size:.8rem; color:var(--muted)}
+    .field input,
+    .field select{
+      border:none;
+      outline:none;
+      width:100%;
+      background:transparent;
+      font:inherit;
+      color:inherit;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border-radius:12px;
+      padding:12px 18px;
+      border:1px solid var(--brand);
+      background:var(--brand);
+      color:var(--brand-ink);
+      font-weight:400;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+      white-space:nowrap;
+    }
+    .btn.secondary{
+      background:#fff;
+      color:var(--brand);
+      border-color:var(--line);
+    }
+    .btn:hover{
+      background-color:#53478C;
+      border-color:#53478C;
+      color:#FFFFFF;
+      -webkit-transition: background-color 300ms linear, border-color 300ms linear;
+      -ms-transition: background-color 300ms linear, border-color 300ms linear;
+      transition: background-color 300ms linear, border-color 300ms linear;
+    }
+    .btn[disabled]{
+      opacity:.5;
+      cursor:not-allowed;
+      box-shadow:none;
+    }
+
+    /* Tabs (CSS-only) */
+    .tabs{margin-top:20px}
+    .tablist{
+      display:flex;
+      gap:4px;
+      border-bottom:1px solid var(--line);
+      overflow:auto;
+      scrollbar-width:none;
+    }
+    .tablist::-webkit-scrollbar{display:none}
+    .tab{
+      position:relative;
+      padding:6px 16px;
+      border-radius:10px 10px 0 0;
+      background:#fff;
+      color:#111;
+      font-weight:300;
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+    }
+    input[name="tab"]{display:none}
+    .panel{display:none; padding-block:28px}
+    #t1:checked ~ .tablist label[for="t1"],
+    #t2:checked ~ .tablist label[for="t2"],
+    #t3:checked ~ .tablist label[for="t3"],
+    #t4:checked ~ .tablist label[for="t4"],
+    #t5:checked ~ .tablist label[for="t5"]{
+      background:#fff;
+      border-bottom:3px solid var(--line);
+      border-bottom-color:var(--brand);
+      font-weight:600;
+    }
+    #t1:checked ~ .panels #p1,
+    #t2:checked ~ .panels #p2,
+    #t3:checked ~ .panels #p3,
+    #t4:checked ~ .panels #p4,
+    #t5:checked ~ .panels #p5{display:block}
+
+    /* Cards grid */
+    .grid{
+      display:grid;
+      gap:16px;
+      grid-template-columns: repeat(12,1fr);
+    }
+    .card{
+      grid-column: span 6;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow-sm);
+      display:flex;
+      flex-direction:column;
+    }
+    .top-row{display:flex; align-items:stretch}
+    .media{
+      position:relative;
+      background:#000;
+      flex:0 0 40%;
+      max-width:40%;
+    }
+    .media img{
+      width:100%;
+      height:240px;
+      object-fit:cover;
+      display:block;
+    }
+    .badge{
+      position:absolute;
+      top:12px;
+      left:12px;
+      background:rgba(17,19,24,.9);
+      color:#fff;
+      font-size:.75rem;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.15);
+    }
+    .body{
+      flex:1;
+      padding:16px 16px 14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .title{font-weight:700; font-size:1.05rem; margin-bottom:2px}
+    .tags{display:flex; gap:8px; flex-wrap:wrap}
+    .tag{
+      background:var(--chip);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:4px 10px;
+      font-size:.8rem;
+      color:#111;
+    }
+    .tag.is-hidden{display:none}
+    .tag.more{
+      background:#fff;
+      border:1px dashed var(--line);
+      color:var(--muted);
+    }
+    .desc{
+      color:var(--muted);
+      font-size:.95rem;
+      display:-webkit-box;
+      -webkit-line-clamp:5;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+      margin-bottom:0;
+      margin-top:10px;
+    }
+    .divider{height:1px; background:var(--line);}
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:16px;
+    }
+    .price{font-weight:700}
+    .fine{font-size:.8rem; color:var(--muted)}
+    .cta{display:flex; gap:10px}
+    .outline{background:#fff; color:var(--ink); border:1px solid var(--line)}
+
+    /* Info sections */
+    .info{
+      display:grid;
+      gap:16px;
+      grid-template-columns:repeat(12,1fr);
+      margin-top:30px;
+      margin-bottom:30px;
+    }
+    .info-card{
+      grid-column: span 6;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow-sm);
+    }
+    .info-card h3{margin:0 0 8px 0; font-size:1.05rem}
+
+    /* Gallery */
+    .gallery{position:relative}
+    .gallery-viewport{overflow:hidden; border-radius:12px;}
+    .gallery-track{display:flex; gap:0; scroll-behavior:smooth; transform:translateX(0);}
+    .gallery-slide{min-width:100%; flex:0 0 100%;}
+    .gallery-slide img{
+      width:100%;
+      height:100%;
+      aspect-ratio:16/8;
+      object-fit:cover;
+      display:block;
+      border-radius:0;
+    }
+    .gallery-nav{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 6px;
+      opacity:0;
+      transition:opacity .2s ease;
+    }
+    .gallery:hover .gallery-nav{opacity:1}
+    .gallery-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.9);
+      cursor:pointer;
+      box-shadow:var(--shadow-sm);
+    }
+    .gallery-btn svg{width:20px; height:20px}
+    .gallery-dots{
+      display:flex;
+      gap:6px;
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:10px;
+      background:rgba(17,19,24,.5);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    .gallery-dot{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.5);
+    }
+    .gallery-dot.is-active{background:#fff}
+
+@media (max-width:720px){
+  .hero{aspect-ratio:4/3}
+  .gallery-slide img{aspect-ratio:4/3}
+  .home-link{display:none;}
+  .date-chips{display:none;}
+  .map-link-text{display:none;}
+}
+    .kv{
+      display:grid;
+      grid-template-columns:2fr 3fr;
+      gap:8px;
+      font-size:.95rem;
+    }
+    .kv div{padding:6px 0; border-bottom:1px solid var(--line)}
+    .kv div:nth-child(odd){color:var(--muted)}
+
+  
+    /* Footer */
+    footer{
+      border-top:1px solid var(--line);
+      padding:30px 0;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+    .footer-top{
+      display:grid;
+      gap:24px;
+      grid-template-columns: minmax(0,2.2fr) repeat(3,minmax(0,1fr));
+      align-items:flex-start;
+      margin-bottom:24px;
+    }
+    .footer-brand-title{
+      font-weight:600;
+      color:var(--ink);
+      margin-bottom:8px;
+      font-size:.98rem;
+    }
+    .footer-brand-text{
+      margin:0;
+      max-width:400px;
+    }
+    .footer-heading{
+      font-weight:600;
+      color:var(--ink);
+      font-size:.85rem;
+      margin:0 0 8px 0;
+    }
+    .footer-links{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .footer-links a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:.85rem;
+    }
+    .footer-links a:hover{
+      color:var(--ink);
+      text-decoration:underline;
+    }
+ .footer-bottom{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  border-top:1px solid rgba(0,0,0,0.03);
+  padding-top:14px;
+  margin-top:4px;
+}
+    .footer-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    .footer-meta a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:.8rem;
+    }
+    .footer-meta a:hover{
+      color:var(--ink);
+      text-decoration:underline;
+    }
+    .footer-copy{
+      font-size:.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width:1024px){
+      .booking .bar{grid-template-columns:1fr; }
+      .btn.book{grid-column:1 / -1}
+    }
+    @media (max-width:720px){
+      .btn.book{grid-column:1 / -1}
+      .top-row{flex-direction:column}
+      .media{max-width:100%; flex:0 0 auto}
+      .media img{height:240px}
+      .info{grid-template-columns:repeat(6,1fr);}
+      .grid{grid-template-columns:repeat(6,1fr);}
+      .info-card{grid-column:1 / -1 !important;}
+      .crumbs-left .here{display:none;}
+  .footer-top{grid-template-columns:1fr;}
+    }
+
+    /* Utility */
+    .spacer{height:10px}
+    .muted{color:var(--muted)}
+
+    .footer-logo-row{
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      margin-bottom:10px;
+    }
+    .footer-rtr-logo{
+      display:block;
+      height:22px;
+      width:auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" aria-label="Site header">
+    <div class="wrap">
+      <div class="bar">
+        <button class="icon-btn header-left" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a href="index.html" class="header-center" aria-label="iDaypass home">
+          <img class="logo" src="https://www.realtimereservation.com/wp-content/uploads/2025/11/idaypass-logo-v4.svg" alt="iDaypass from RealTime Reservation" width="148" height="38" decoding="async"/>
+        </a>
+
+        <button class="icon-btn header-right" aria-label="View cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 12.39a2 2 0 0 0 2 1.61h7.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <div class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+     <div class="crumbs-left">
+  <a href="#" class="home-link" aria-label="iDaypass home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 11l9-8 9 8"></path>
+      <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path>
+    </svg>
+  </a>
+  <a href="#">Arizona</a><span class="sep">›</span>
+  <a href="#">Scottsdale</a><span class="sep">›</span>
+</div>
+      <div class="crumbs-right">
+     <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=JW+Marriott+Scottsdale+Camelback+Inn+Resort+%26+Spa" target="_blank" rel="noopener noreferrer">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 10c0 6-9 13-9 13S3 16 3 10a9 9 0 1 1 18 0Z"></path>
+    <circle cx="12" cy="10" r="3"></circle>
+  </svg>
+  <span class="map-link-text">Map</span>
+</a>
+
+<a class="map-link" href="#" target="_blank" rel="noopener noreferrer">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+    <polyline points="15 3 21 3 21 9"></polyline>
+    <line x1="10" y1="14" x2="21" y2="3"></line>
+  </svg>
+  <span class="map-link-text">Property website</span>
+</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero (interior, image not edge-to-edge) -->
+  <div class="wrap hero-wrap">
+    <section class="hero" aria-label="Property hero">
+      <div class="gallery" aria-label="Property image gallery">
+        <div class="gallery-viewport">
+          <div class="gallery-track" data-gallery-track>
+            <div class="gallery-slide"><img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-grounds-0121-hor-clsc.jpg" alt="Resort pool area at sunset" data-lightbox-img></div>
+            <div class="gallery-slide"><img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-garden-0123-hor-clsc.jpg" alt="Terrace with wine" data-lightbox-img></div>
+            <div class="gallery-slide"><img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-exterior-0057-hor-clsc.jpg" alt="Resort exterior at sunset" data-lightbox-img></div>
+            <div class="gallery-slide"><img src="https://cache.marriott.com/is/image/marriotts7prod/jw-phxcb-waterfall-cabana--31991:Classic-Hor?wid=1336&fit=constrain" alt="Waterfall cabana" data-lightbox-img></div>
+          </div>
+        </div>
+        <div class="gallery-nav" aria-hidden="true">
+          <button class="gallery-btn" type="button" data-gallery-prev aria-label="Previous image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="gallery-btn" type="button" data-gallery-next aria-label="Next image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+        <div class="gallery-dots" role="tablist" aria-label="Image selectors" data-gallery-dots></div>
+      </div>
+    </section>
+    <div class="property-header">
+      <h1>JW Marriott Scottsdale Camelback Inn</h1>
+      <div class="muted">Scottsdale, Arizona</div>
+    </div>
+  </div>
+
+  <!-- Sticky booking bar for this property -->
+  <div class="booking">
+    <div class="wrap">
+     <div class="bar" role="group" aria-label="Search availability">
+  <div class="field field-date">
+    <div class="field-date-main">
+      <label for="date">Date</label>
+      <input id="date" type="date" aria-label="Date" />
+    </div>
+    <div class="date-chips" aria-label="Quick date options">
+      <button type="button" class="date-chip" data-date-chip="today">Today</button>
+      <button type="button" class="date-chip" data-date-chip="tomorrow">Tomorrow</button>
+      <button type="button" class="date-chip" data-date-chip="weekend">This weekend</button>
+    </div>
+  </div>
+  <button class="btn book" aria-label="Check availability">Check availability</button>
+</div>
+    </div>
+  </div>
+
+  <!-- Product tabs -->
+  <div class="wrap tabs">
+    <input type="radio" name="tab" id="t1" checked />
+    <input type="radio" name="tab" id="t2" />
+    <input type="radio" name="tab" id="t3" />
+    <input type="radio" name="tab" id="t4" />
+    <input type="radio" name="tab" id="t5" />
+
+    <div class="tablist" role="tablist" aria-label="Product categories">
+      <label class="tab" id="tab-1" for="t1" role="tab" aria-controls="p1" aria-selected="true">Day passes</label>
+      <label class="tab" id="tab-2" for="t2" role="tab" aria-controls="p2" aria-selected="false">Cabanas</label>
+      <label class="tab" id="tab-3" for="t3" role="tab" aria-controls="p3" aria-selected="false">Experiences</label>
+      <label class="tab" id="tab-4" for="t4" role="tab" aria-controls="p4" aria-selected="false">Events</label>
+      <label class="tab" id="tab-5" for="t5" role="tab" aria-controls="p5" aria-selected="false">Misc</label>
+    </div>
+
+    <div class="panels">
+      <!-- Day passes -->
+      <section class="panel" id="p1" role="tabpanel" aria-labelledby="tab-1">
+        <div class="grid">
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Date not available</span>
+                <img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-pool-0129-hor-clsc.jpg" alt="General pool area">
+              </div>
+              <div class="body">
+                <div class="title">Pool day pass</div>
+                <p class="desc">Enjoy full-day access to main pools and amenities. Seating is first-come, first-served. Availability varies by date. Cabana upgrades, food, and beverage can be added at checkout when available.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">Starting at $45 </div>
+                <div class="fine">Taxes &amp; fees at checkout</div>
+                
+              </div>
+              <div class="cta">
+                <button class="btn outline availability-btn" type="button">View availability</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Only a few left</span>
+                <img src="https://cdn.ainvest.com/aigc/hxcmp/images/compress-1b025a929f47e002.png" alt="Spa pool">
+              </div>
+              <div class="body">
+                <div class="title">Spa pool day access</div>
+                <p class="desc">Quiet-zone pool access with locker rooms. Spa services not included; add treatments at checkout if available.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">Starting at $75 </div>
+                <div class="fine">Taxes &amp; fees at checkout</div>
+                
+              </div>
+              <div class="cta">
+                <button class="btn">Select</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Cabanas -->
+      <section class="panel" id="p2" role="tabpanel" aria-labelledby="tab-2">
+        <div class="grid">
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold out</span>
+                <img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-private-pool-7917-hor-clsc.jpg" alt="Pool cabana">
+              </div>
+              <div class="body">
+                <div class="title">Poolside cabana (up to 6)</div>
+                <p class="desc">Private cabana with lounge seating. Add pre-arrival food &amp; beverage after selection.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">Starting at $250 </div>
+                <div class="fine">Taxes &amp; fees at checkout</div>
+                
+              </div>
+              <div class="cta">
+                <button class="btn outline availability-btn" type="button">View availability</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold out</span>
+                <img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-pool-0129-hor-clsc.jpg?" alt="VIP cabana">
+              </div>
+              <div class="body">
+                <div class="title">VIP cabana (up to 8)</div>
+                <p class="desc">Larger cabana near main pool with extra seating and small fridge. Ideal for groups.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">Starting at $400 </div>
+                <div class="fine">Taxes &amp; fees at checkout</div>
+                
+              </div>
+              <div class="cta">
+                <button class="btn outline availability-btn" type="button">View availability</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Experiences -->
+      <section class="panel" id="p3" role="tabpanel" aria-labelledby="tab-3">
+        <div class="grid">
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold out</span>
+                <img src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?q=80&w=1200&auto=format&fit=crop" alt="Fitness class">
+              </div>
+              <div class="body">
+                <div class="title">Morning fitness class</div>
+                <p class="desc">Instructor-led session by the pool deck. Mats available; bring water.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">Starting at $25 </div>
+                <div class="fine">Taxes &amp; fees at checkout</div>
+                
+              </div>
+              <div class="cta">
+                <button class="btn outline availability-btn" type="button">View availability</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold out</span>
+                <img src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?q=80&w=1200&auto=format&fit=crop" alt="Wine tasting">
+              </div>
+              <div class="body">
+                <div class="title">Sunset tasting</div>
+                <p class="desc">Guided tasting with light bites. Held on the terrace with mountain views.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">Starting at $65 </div>
+                <div class="fine">Taxes &amp; fees at checkout</div>
+                
+              </div>
+              <div class="cta">
+                <button class="btn outline availability-btn" type="button">View availability</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Events (duplicate experiences for now) -->
+      <section class="panel" id="p4" role="tabpanel" aria-labelledby="tab-4">
+        <div class="grid">
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold out</span>
+                <img src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?q=80&w=1200&auto=format&fit=crop" alt="Fitness class">
+              </div>
+              <div class="body">
+                <div class="title">Morning fitness class</div>
+                <p class="desc">Instructor-led session by the pool deck. Mats available; bring water.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">Starting at $25 </div>
+                <div class="fine">Taxes &amp; fees at checkout</div>
+                
+              </div>
+              <div class="cta">
+                <button class="btn outline availability-btn" type="button">View availability</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold out</span>
+                <img src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?q=80&w=1200&auto=format&fit=crop" alt="Wine tasting">
+              </div>
+              <div class="body">
+                <div class="title">Sunset tasting</div>
+                <p class="desc">Guided tasting with light bites. Held on the terrace with mountain views.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">Starting at $65 </div>
+                <div class="fine">Taxes &amp; fees at checkout</div>
+                
+              </div>
+              <div class="cta">
+                <button class="btn outline availability-btn" type="button">View availability</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Misc (duplicate experiences for now) -->
+      <section class="panel" id="p5" role="tabpanel" aria-labelledby="tab-5">
+        <div class="grid">
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold out</span>
+                <img src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?q=80&w=1200&auto=format&fit=crop" alt="Fitness class">
+              </div>
+              <div class="body">
+                <div class="title">Morning fitness class</div>
+                <p class="desc">Instructor-led session by the pool deck. Mats available; bring water.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">Starting at $25 </div>
+                <div class="fine">Taxes &amp; fees at checkout</div>
+                
+              </div>
+              <div class="cta">
+                <button class="btn outline availability-btn" type="button">View availability</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold out</span>
+                <img src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?q=80&w=1200&auto=format&fit=crop" alt="Wine tasting">
+              </div>
+              <div class="body">
+                <div class="title">Sunset tasting</div>
+                <p class="desc">Guided tasting with light bites. Held on the terrace with mountain views.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">Starting at $65 </div>
+                <div class="fine">Taxes &amp; fees at checkout</div>
+                
+              </div>
+              <div class="cta">
+                <button class="btn outline availability-btn" type="button">View availability</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- About / gallery / details -->
+  <div style="background-color:#f3f4f6; border:1px solid var(--line); padding-top:20px; padding-bottom:20px; margin-top:30px; margin-bottom:0;">
+    <div class="wrap"><h3>About the property</h3></div>
+    <div class="wrap info">
+      <section class="info-card">
+        <h3>Property overview</h3>
+        <p>Discover JW Marriott Scottsdale Camelback Inn Resort &amp; Spa, an award-winning resort near Camelback Mountain in Paradise Valley, AZ. The resort features deluxe amenities, heated outdoor pools, garden terraces, and desert trails through the Sonoran Desert.</p>
+        <p>Take the complimentary shuttle to the 18-hole championship golf courses or treat yourself to a refreshing massage in the tranquil day spa. Relax in casitas and suites with sophisticated furnishings and outdoor living spaces, many with sweeping mountain views.</p>
+      </section>
+
+
+      <section class="info-card">
+        <h3>Property details</h3>
+        <div class="kv">
+          <div>Location</div><div>Scottsdale, Arizona</div>
+          <div>Hours</div><div>Pool 9:00–18:00 • Spa 8:00–18:00</div>
+          <div>Parking</div><div>Self-parking available (rates vary)</div>
+          <div>Contact</div><div>(000) 000-0000 • info@example.com</div>
+          <div>Restaurants</div>
+          <div>
+            <a href="#" class="link-icon">
+              View details
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
+          </div>
+          <div>Property map</div>
+          <div>
+            <a href="#" class="link-icon">
+              View details
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+      
+    </div>
+  </div>
+<section class="wrap" aria-label="Explore by destination" style="padding-top:26px; padding-bottom:10px;">
+      <header style="display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-bottom:12px;">
+        <div>
+          <h2 style="margin:0; font-size:1.25rem;">Browse by destination</h2>
+          <p class="muted" style="margin:4px 0 0 0; font-size:.9rem;">Coming soon: hundreds of hotels &amp; resorts across the U.S. and beyond.</p>
+        </div>
+      </header>
+      <div class="tags" style="margin-bottom:4px;">
+        <span class="tag">Scottsdale</span>
+        <span class="tag">Miami</span>
+        <span class="tag">Las Vegas</span>
+        <span class="tag">Los Angeles</span>
+        <span class="tag">New York</span>
+        <span class="tag">Orlando</span>
+        <span class="tag">Cancún</span>
+      </div>
+    </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <section>
+          <div class="footer-brand-title">iDaypass from RealTime Reservation</div>
+          <p class="footer-brand-text">
+           iDaypass makes it easy to enjoy resort-style amenities for the day, without booking an overnight stay. Built on RealTime Reservation's hotel technology, every pass you see here comes directly from our partner properties, with real-time availability and a simple, secure booking experience.
+          </p>
+        </section>
+        <section>
+          <h4 class="footer-heading">For guests</h4>
+          <ul class="footer-links">
+            <li><a href="#">How it works</a></li>
+            <li><a href="#">Find a daypass</a></li>
+            <li><a href="#">Gift passes</a></li>
+            <li><a href="#">Help &amp; FAQs</a></li>
+          </ul>
+        </section>
+        <section>
+          <h4 class="footer-heading">For hotels &amp; resorts</h4>
+          <ul class="footer-links">
+            <li><a href="#">Partner with iDaypass</a></li>
+            <li><a href="#">Revenue opportunities</a></li>
+            <li><a href="#">Platform overview</a></li>
+            <li><a href="#">Schedule a demo</a></li>
+          </ul>
+        </section>
+        <section>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About RealTime Reservation</a></li>
+            <li><a href="#">News &amp; updates</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </section>
+      </div>
+     <div class="footer-bottom">
+  <div class="footer-logo-row">
+    <img
+      src="https://www.realtimereservation.com/wp-content/uploads/2023/07/RTR-Logo-2023.svg"
+      alt="RealTime Reservation"
+      class="footer-rtr-logo"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <div class="footer-copy">
+    &copy; <span id="footer-year">2025</span> RealTime Reservation. All rights reserved.
+  </div>
+  <div class="footer-meta">
+    <a href="#">Privacy policy</a>
+    <a href="#">Terms of use</a>
+    <a href="#">Cookie settings</a>
+  </div>
+</div>
+    </div>
+  </footer>
+
+  <div class="nav-overlay" data-nav-overlay hidden></div>
+  <nav class="nav-drawer" aria-label="Main navigation" aria-hidden="true" data-nav-drawer>
+    <div class="nav-drawer-header">
+      <img
+        class="nav-drawer-logo"
+        src="https://www.realtimereservation.com/wp-content/uploads/2025/11/idaypass-logo-v4.svg"
+        alt="iDaypass from RealTime Reservation"
+        decoding="async"
+      />
+      <button class="nav-drawer-close" type="button" aria-label="Close menu" data-nav-close>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="nav-drawer-body">
+      <section class="nav-section">
+        <div class="nav-section-title">Explore</div>
+        <ul class="nav-list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Browse by destination</a></li>
+          <li><a href="#">Browse by experience</a></li>
+          <li><a href="#">Gift passes</a></li>
+          <li><a href="#">How it works</a></li>
+          <li><a href="#">Help &amp; FAQs</a></li>
+        </ul>
+      </section>
+
+      <section class="nav-section">
+        <div class="nav-section-title">Browse by destination</div>
+        <ul class="nav-list nav-list-inline">
+          <li><a href="#">Arizona</a></li>
+          <li><a href="#">California</a></li>
+          <li><a href="#">Florida</a></li>
+          <li><a href="#">Nevada</a></li>
+          <li><a href="#">New York</a></li>
+          <li><a href="#">Texas</a></li>
+        </ul>
+      </section>
+
+      <section class="nav-section">
+        <div class="nav-section-title">Browse by experience</div>
+        <ul class="nav-list">
+          <li><a href="#">Pool &amp; cabanas</a></li>
+          <li><a href="#">Spa &amp; wellness</a></li>
+          <li><a href="#">Activities &amp; excursions</a></li>
+          <li><a href="#">Day passes</a></li>
+          <li><a href="#">Events &amp; nightlife</a></li>
+        </ul>
+      </section>
+
+      <section class="nav-section">
+        <div class="nav-section-title">For hotels &amp; resorts</div>
+        <ul class="nav-list">
+          <li><a href="#">Partner with iDaypass</a></li>
+          <li><a href="#">Revenue opportunities</a></li>
+          <li><a href="#">Platform overview</a></li>
+          <li><a href="#">Schedule a demo</a></li>
+        </ul>
+      </section>
+
+      <section class="nav-section nav-footer-meta">
+        <div>Powered by RealTime Reservation.</div>
+        <div><a href="#">About RealTime Reservation</a></div>
+      </section>
+    </div>
+  </nav>
+
+  <script>
+    (function(){
+      const track = document.querySelector('[data-gallery-track]');
+      if(!track) return;
+      const slides = Array.from(track.children);
+      let index = 0;
+      const prev = document.querySelector('[data-gallery-prev]');
+      const next = document.querySelector('[data-gallery-next]');
+      const dotsWrap = document.querySelector('[data-gallery-dots]');
+
+      function update(){
+        const x = -index * 100;
+        track.style.transform = `translateX(${x}%)`;
+        if(dotsWrap){
+          dotsWrap.querySelectorAll('.gallery-dot').forEach((d,i)=>{
+            d.classList.toggle('is-active', i===index);
+          });
+        }
+      }
+      function go(n){ index = (n + slides.length) % slides.length; update(); }
+
+      if(dotsWrap){
+        slides.forEach((_,i)=>{
+          const dot = document.createElement('button');
+          dot.className = 'gallery-dot';
+          dot.type = 'button';
+          dot.setAttribute('aria-label', `Show image ${i+1}`);
+          dot.addEventListener('click', ()=> go(i));
+          dotsWrap.appendChild(dot);
+        });
+      }
+
+      prev && prev.addEventListener('click', ()=> go(index-1));
+      next && next.addEventListener('click', ()=> go(index+1));
+      update();
+
+      // Swipe support
+      let startX=null;
+      track.addEventListener('touchstart', (e)=>{startX=e.touches[0].clientX;}, {passive:true});
+      track.addEventListener('touchmove', (e)=>{
+        if(startX===null) return;
+        const dx = e.touches[0].clientX - startX;
+        if(Math.abs(dx)>50){
+          go(index + (dx<0?1:-1));
+          startX=null;
+        }
+      }, {passive:true});
+
+      // Quick date chips
+const dateInput = document.getElementById('date');
+const chipButtons = document.querySelectorAll('[data-date-chip]');
+
+function formatDateForInput(d){
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${year}-${month}-${day}`;
+}
+
+function setChipDate(type){
+  const today = new Date();
+  let target = new Date(today);
+
+  if(type === 'today'){
+    // today
+  }else if(type === 'tomorrow'){
+    target.setDate(target.getDate() + 1);
+  }else if(type === 'weekend'){
+    const day = target.getDay(); // 0=Sun..6=Sat
+    let offset = (6 - day + 7) % 7;
+    if(offset === 0) offset = 7; // always next Saturday
+    target.setDate(target.getDate() + offset);
+  }
+
+  if(dateInput){
+    dateInput.value = formatDateForInput(target);
+  }
+}
+
+if(dateInput && chipButtons.length){
+  chipButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      chipButtons.forEach(b=>b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const type = btn.getAttribute('data-date-chip');
+      setChipDate(type);
+    });
+  });
+}
+
+      // Lightbox for hero gallery images
+      const lightboxImages = document.querySelectorAll('.hero [data-lightbox-img]');
+      if(lightboxImages.length){
+        lightboxImages.forEach(img=>{
+          img.style.cursor = 'zoom-in';
+          img.addEventListener('click', ()=>{
+            const src = img.getAttribute('src');
+            if(!src) return;
+            const overlay = document.createElement('div');
+            overlay.className = 'lightbox-overlay';
+            overlay.innerHTML = `
+              <div class="lightbox-inner">
+                <button class="lightbox-close" type="button" aria-label="Close image">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+                <img src="${src}" alt="${img.alt || ''}">
+              </div>
+            `;
+            function close(){
+              overlay.removeEventListener('click', onOverlayClick);
+              document.removeEventListener('keydown', onKey);
+              overlay.remove();
+            }
+            function onOverlayClick(e){
+              if(e.target === overlay || e.target.closest('.lightbox-close')){
+                close();
+              }
+            }
+            function onKey(e){
+              if(e.key === 'Escape'){
+                close();
+              }
+            }
+            overlay.addEventListener('click', onOverlayClick);
+            document.addEventListener('keydown', onKey);
+            document.body.appendChild(overlay);
+          });
+        });
+      }
+
+      // One-line tags with +x more
+      function collapseTags(){
+        const containers = document.querySelectorAll('.tags');
+        containers.forEach(tags=>{
+          tags.querySelectorAll('.tag.more').forEach(m=>m.remove());
+          const tagEls = Array.from(tags.querySelectorAll('.tag'));
+          tagEls.forEach(t=>t.classList.remove('is-hidden'));
+          if(tagEls.length===0) return;
+
+          const firstTop = tagEls[0].offsetTop;
+          let overflow = [];
+
+          for(const el of tagEls){
+            if(el.offsetTop>firstTop){
+              el.classList.add('is-hidden');
+              overflow.push(el);
+            }
+          }
+          if(overflow.length===0) return;
+
+          const chip = document.createElement('span');
+          chip.className = 'tag more';
+          chip.textContent = `+${overflow.length}`;
+          tags.appendChild(chip);
+
+          const visibles = Array.from(tags.querySelectorAll('.tag'))
+            .filter(el=>!el.classList.contains('is-hidden') && !el.classList.contains('more'));
+
+          while(chip.offsetTop>firstTop && visibles.length){
+            const last = visibles.pop();
+            last.classList.add('is-hidden');
+            overflow.push(last);
+            chip.textContent = `+${overflow.length}`;
+          }
+        });
+      }
+      collapseTags();
+      let _rz;
+      window.addEventListener('resize', ()=>{ clearTimeout(_rz); _rz = setTimeout(collapseTags, 150); });
+
+      // Slide-out nav drawer
+      const navDrawer = document.querySelector('[data-nav-drawer]');
+      const navOverlay = document.querySelector('[data-nav-overlay]');
+      const menuButton = document.querySelector('.site-header .header-left');
+      const navCloseBtn = navDrawer ? navDrawer.querySelector('[data-nav-close]') : null;
+
+      function openNav(){
+        if(!navDrawer || !navOverlay) return;
+        navDrawer.classList.add('is-open');
+        navDrawer.setAttribute('aria-hidden','false');
+        navOverlay.hidden = false;
+        navOverlay.classList.add('is-visible');
+        if(menuButton){
+          menuButton.setAttribute('aria-expanded','true');
+        }
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeNav(){
+        if(!navDrawer || !navOverlay) return;
+        navDrawer.classList.remove('is-open');
+        navDrawer.setAttribute('aria-hidden','true');
+        navOverlay.classList.remove('is-visible');
+        navOverlay.hidden = true;
+        if(menuButton){
+          menuButton.setAttribute('aria-expanded','false');
+        }
+        document.body.style.overflow = '';
+      }
+
+      if(menuButton && navDrawer && navOverlay){
+        menuButton.addEventListener('click', openNav);
+      }
+      if(navCloseBtn){
+        navCloseBtn.addEventListener('click', closeNav);
+      }
+      if(navOverlay){
+        navOverlay.addEventListener('click', closeNav);
+      }
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape'){
+          closeNav();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
