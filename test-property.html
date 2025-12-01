@@ -31,7 +31,7 @@
       --radius:14px;
       --shadow:0 0px 20px rgba(0,0,0,.08);
       --shadow-sm:0 0px 14px rgba(0,0,0,.06);
-      --max:1200px;
+      --max:1400px;
     }
 
     *{box-sizing:border-box}
@@ -300,7 +300,7 @@
 
     /* Hero (interior-style, not edge-to-edge) */
     .hero-wrap{
-      padding-bottom:0;
+      padding-bottom:24px;
       background:transparent;
     }
     .hero{
@@ -309,7 +309,7 @@
       overflow:hidden;
       margin-bottom:0;
       background:#000;
-      aspect-ratio:16/8;
+      aspect-ratio:16/6;
       border-bottom:none;
     }
     .lightbox-overlay{
@@ -678,7 +678,7 @@
     .gallery-slide img{
       width:100%;
       height:100%;
-      aspect-ratio:16/8;
+      aspect-ratio:16/6;
       object-fit:cover;
       display:block;
       border-radius:0;
@@ -1069,6 +1069,10 @@
 
   <!-- Hero (interior, image not edge-to-edge) -->
   <div class="wrap hero-wrap">
+    <div class="property-header">
+      <h1>JW Marriott Scottsdale Camelback Inn</h1>
+      <div class="muted">Scottsdale, Arizona</div>
+    </div>
     <section class="hero" aria-label="Property hero">
       <div class="gallery" aria-label="Property image gallery">
         <div class="gallery-viewport">
@@ -1090,10 +1094,7 @@
         <div class="gallery-dots" role="tablist" aria-label="Image selectors" data-gallery-dots></div>
       </div>
     </section>
-    <div class="property-header">
-      <h1>JW Marriott Scottsdale Camelback Inn</h1>
-      <div class="muted">Scottsdale, Arizona</div>
-    </div>
+    
   </div>
 
   <!-- Sticky booking bar for this property -->
