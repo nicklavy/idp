@@ -18,7 +18,8 @@
 
       --brand:#665f9e;       /* PRIMARY purple (buttons, CTAs) */
       --brand-ink:#FFFFFF;   /* white text on buttons */
-
+--button-gradient: linear-gradient(135deg, #665f9e 0%, #B96793 100%);
+--button-gradient2: linear-gradient(135deg, #B96793 0%, #665f9e 100%);
       --accent:#eb986e;      /* secondary gold/beige */
       --chip:#f6f3ed;        /* warm sand for chips/pills */
 
@@ -84,6 +85,9 @@
     .header-center{justify-self:center}
     .header-right{justify-self:end}
 
+
+
+    
     /* Slide-out navigation */
     .nav-overlay{
       position:fixed;
@@ -309,9 +313,32 @@
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;text-decoration: none;
       border-radius:12px; padding:12px 18px; border:1px solid var(--brand);
-      background:var(--brand); color:var(--brand-ink); font-weight:400; cursor:pointer;
+      background:var(--brand); color:var(--brand-ink); font-weight:200; cursor:pointer;
       box-shadow:var(--shadow);
+      font-size: .9em;
+      font-family: 'Zalando Sans', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
+    /* Show the "View Passes" chevron only on hover */
+    .cta .btn svg{
+      margin:-14px;
+      opacity:0;
+      transform:translateX(-10px);
+      transition:opacity 1.2s ease, transform .78s ease;
+      transition: margin 200ms linear;
+    }
+    .cta .btn:hover svg,
+    .cta .btn:focus-visible svg{
+      margin:0px;
+      opacity:.7;
+      transform:translateX(0px);
+      transition: margin 200ms linear;
+    }
+    .btn.book{background:var(--button-gradient); border-color:white;}
+    .btn.book:hover{background:var(--button-gradient2);
+    -webkit-transition: background 800ms linear, border-color 100ms linear;
+      -ms-transition: background 800ms linear, border-color 100ms linear;
+      transition: background 800ms linear, border-color 100ms linear;}
+    
     .btn.secondary{
       background:#fff; color:var(--brand); border-color:var(--line);
     }
@@ -319,12 +346,14 @@
       background-color:#999; color:var(--brand); border-color:var(--line);
     }
     .btn:hover{
-      background-color:#53478C;
-      border-color:#53478C;
+      background: linear-gradient(135deg, #EB905F 0%, #B96793 100%);
+      border-color:#B96793;
       color:#FFFFFF;
-      -webkit-transition: background-color 300ms linear, border-color 300ms linear;
-      -ms-transition: background-color 300ms linear, border-color 300ms linear;
-      transition: background-color 300ms linear, border-color 300ms linear;
+      
+      -webkit-transition: background 2s linear, border-color 100ms linear;
+  -moz-transition: background 2s linear, border-color 100ms linear;
+  -o-transition: background 2s linear, border-color 100ms linear;
+  transition: background 2s linear, border-color 100ms linear;
     }
 
     /* Tabs (CSS-only) */
@@ -532,7 +561,7 @@
     /* Responsive */
     @media (max-width: 1024px){
       .booking .bar{grid-template-columns: 1fr 1fr; }
-      .btn.book{grid-column: 1 / -1}
+      .btn.book{grid-column: 1 / -1;}
     }
     @media (max-width: 720px){
       .hero{
@@ -547,7 +576,8 @@
           rgba(45,55,105,0.75) 100%
         );
       }
-      .btn.book{grid-column: 1 / -1}
+      .btn.book{grid-column: 1 / -1;
+      }
       .top-row{flex-direction:column}
       .media{max-width:100%; flex: 0 0 auto}
       .media img{height:260px}
@@ -638,7 +668,13 @@
             <input id="search-date" type="date" />
           </div>
         </div>
-        <button class="btn book" aria-label="Search daypasses">Search Passes</button>
+        <button class="btn book" aria-label="Search daypasses">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="width:18px;height:18px;">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          Search Passes
+        </button>
       </div>
     </div>
   </div>
@@ -648,10 +684,10 @@
     <nav class="breadcrumbs" aria-label="Popular collections" style="padding-bottom: 8px; padding-top: 18px;">
       <div class="crumbs-left" style="gap:6px;">
         <span class="property-chip" style="background:var(--chip); border-color:var(--line); color:var(--ink);">Day Passes</span>
+        <span class="property-chip" style="background:var(--chip); border-color:var(--line); color:var(--ink);">Spa Passes</span>
         <span class="property-chip" style="background:var(--chip); border-color:var(--line); color:var(--ink);">Cabanas</span>
-        <span class="property-chip" style="background:var(--chip); border-color:var(--line); color:var(--ink);">Spa &amp; Wellness</span>
         <span class="property-chip" style="background:var(--chip); border-color:var(--line); color:var(--ink);">Experiences</span>
-        <span class="property-chip" style="background:var(--chip); border-color:var(--line); color:var(--ink);">Parking</span>
+        <span class="property-chip" style="background:var(--chip); border-color:var(--line); color:var(--ink);">Restaurants</span>
       </div>
     </nav>
   </div>
@@ -662,7 +698,7 @@
       <header class="section-header" style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:16px;">
         <div>
           <h2 style="margin:0; font-size:1.4rem;">Featured near Scottsdale, AZ</h2>
-          
+          <p class="muted" style="margin:4px 0 0 0; font-size:.9rem;">Based on today's most-booked daypasses.</p>
         </div>
         <a href="#" class="link-icon" style="font-size:.9rem;">
           View all
@@ -685,10 +721,10 @@
             <div class="body">
               <div class="title">JW Marriott Scottsdale Camelback Inn</div>
               <div class="tags">
-                <span class="tag">Day Passes</span>
-                <span class="tag">Spa Passes</span>
-                <span class="tag">Cabanas</span>
-                <span class="tag">Experiences</span>
+                <span class="tag">Pool &amp; cabanas</span>
+                <span class="tag">Spa access</span>
+                <span class="tag">Family friendly</span>
+                <span class="tag">Daybeds</span>
               </div>
               <p class="desc">Desert-inspired retreat with heated pools, spa sanctuary, and views of Camelback Mountain. Book pool daypasses, spa access, and private cabanas.</p>
             </div>
@@ -696,12 +732,16 @@
           <div class="divider" role="separator" aria-hidden="true"></div>
           <div class="footer-row">
             <div>
-              <div class="price">Starting at $35</div>
-              <div class="fine">Taxes & fees at checkout
-</div>
+              <div class="price">From $45 <span class="muted">per guest</span></div>
+              <div class="fine">Free cancellation until 24 hours before arrival</div>
             </div>
             <div class="cta">
-              <a href="test-property.html" class="btn">View Passes</a>
+              <a href="test-property.html" class="btn">
+                View Passes
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="width:18px;height:18px;">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
             </div>
           </div>
         </article>
@@ -716,9 +756,9 @@
             <div class="body">
               <div class="title">The Phoenician, a Luxury Collection Resort</div>
               <div class="tags">
-                <span class="tag">Day Passes</span>
-                <span class="tag">Spa Passes</span>
-                <span class="tag">Cabanas</span>
+                <span class="tag">Adults only</span>
+                <span class="tag">Rooftop</span>
+                <span class="tag">DJ &amp; cocktails</span>
               </div>
               <p class="desc">Elevate your Scottsdale daycation at The Phoenician with a three-level pool complex and private cabanas. Indulge in spa treatments, wellness activities, or a round of golf.</p>
             </div>
@@ -726,11 +766,16 @@
           <div class="divider" role="separator" aria-hidden="true"></div>
           <div class="footer-row">
             <div>
-              <div class="price">Starting at $35</div>
-              <div class="fine">Taxes & fees at checkout</div>
+              <div class="price">From $60 <span class="muted">per guest</span></div>
+              <div class="fine">Limited inventory on weekends</div>
             </div>
             <div class="cta">
-              <a href="test-property.html" class="btn">View Passes</a>
+              <a href="test-property.html" class="btn">
+                View Passes
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="width:18px;height:18px;">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
             </div>
           </div>
         </article>
@@ -745,9 +790,9 @@
             <div class="body">
               <div class="title">The Westin Kierland Resort & Spa</div>
               <div class="tags">
-                <span class="tag">Day Passes</span>
-                <span class="tag">Spa Passes</span>
-                <span class="tag">Cabanas</span>
+                <span class="tag">Spa access</span>
+                <span class="tag">Thermal suite</span>
+                <span class="tag">Quiet zone</span>
               </div>
               <p class="desc">Quiet, adults-focused spa with hydrotherapy pools, saunas, and wellness lounge. Treatments available as add-ons.</p>
             </div>
@@ -755,11 +800,16 @@
           <div class="divider" role="separator" aria-hidden="true"></div>
           <div class="footer-row">
             <div>
-              <div class="price">Starting at $35</div>
-              <div class="fine">Taxes & fees at checkout</div>
+              <div class="price">From $95 <span class="muted">per guest</span></div>
+              <div class="fine">Spa access only • treatments extra</div>
             </div>
             <div class="cta">
-              <a href="test-property.html" class="btn">View Passes</a>
+              <a href="test-property.html" class="btn">
+                View Passes
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="width:18px;height:18px;">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
             </div>
           </div>
         </article>
@@ -774,9 +824,9 @@
             <div class="body">
               <div class="title">JW Marriott Tucson Starr Pass Resort & Spa</div>
               <div class="tags">
-                <span class="tag">Day Passes</span>
-                <span class="tag">Spa Passes</span>
-                <span class="tag">Cabanas</span>
+                <span class="tag">Family friendly</span>
+                <span class="tag">Lazy river</span>
+                <span class="tag">Splash zone</span>
               </div>
               <p class="desc">Unwind at JW Marriott Starr Pass with lazy river floats, multi-level pools, and shaded cabanas perfect for Arizona sun-filled days. The spa offers wellness treatments, fitness classes, and healthy dining options.</p>
             </div>
@@ -784,11 +834,16 @@
           <div class="divider" role="separator" aria-hidden="true"></div>
           <div class="footer-row">
             <div>
-              <div class="price">Starting at $35</div>
-              <div class="fine">Taxes & fees at checkout</div>
+              <div class="price">From $35 <span class="muted">per guest</span></div>
+              <div class="fine">Kids under 3 free with paying adult</div>
             </div>
             <div class="cta">
-              <a href="test-property.html" class="btn">View Passes</a>
+              <a href="test-property.html" class="btn">
+                View Passes
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="width:18px;height:18px;">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
             </div>
           </div>
         </article>
