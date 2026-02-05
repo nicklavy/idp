@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link href="https://fonts.cdnfonts.com/css/br-sonoma" rel="stylesheet">
+                
+                
+  <title>Property Day Pass – Mock Layout</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --ink:#111318;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --brand:#ff8d6b;            /* swap with brand color if desired */
+      --brand-ink:#000;
+      --cart-bg:#ffffff;
+      --cart-overlay:rgba(17,19,24,.55);
+      --chip:#f3f4f6;
+      --accent:#5d8095;           /* used for subtle highlights */
+      --card:#ffffff;
+      --hero-grad:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0) 60%, rgba(28, 29, 30, 0.8));
+      --radius:14px;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --shadow-sm:0 4px 16px rgba(0,0,0,.06);
+      --max:1200px;
+    }
+    @import url('https://fonts.cdnfonts.com/css/br-sonoma');
+
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'BR Sonoma', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background:var(--bg);
+      line-height:1.45;
+    }
+
+    /* Site Header */
+    .site-header{top:0; z-index:50; background:rgba(255,255,255,.95); backdrop-filter:saturate(160%) blur(8px); border-bottom:1px solid var(--line)}
+    .site-header .bar{display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; height:64px}
+    .icon-btn{display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:10px; border:0px solid var(--line); background:#fff; cursor:pointer}
+    .icon-btn :hover{border:1px solid var(--line); box-shadow:var(--shadow-sm);}
+    .icon-btn svg{width:22px; height:22px}
+    .logo{display:block; height:32px}
+    .header-left{justify-self:start}
+    .header-center{justify-self:center}
+    .header-right{justify-self:end}
+
+    /* Header / Breadcrumbs */
+    .wrap{max-width:var(--max); margin-inline:auto; padding-inline:20px}
+    .breadcrumbs{
+      display:flex; gap:8px; align-items:center; justify-content:space-between;
+      font-size:.875rem; color:var(--muted);
+      padding:14px 0;
+      overflow:auto; scrollbar-width:none;
+    }
+    .breadcrumbs::-webkit-scrollbar{display:none}
+    .breadcrumbs a{color:inherit; text-decoration:none}
+    .breadcrumbs .sep{opacity:.6}
+    .breadcrumbs .here{color:var(--ink); font-weight:600}
+    .crumbs-left{display:flex; gap:8px; align-items:center; flex:1 1 auto}
+    .map-link{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--line); border-radius:999px; background:#fff; color:inherit; text-decoration:none; white-space:nowrap}
+    .map-link svg{width:16px; height:16px}
+    .map-link:hover{box-shadow:var(--shadow-sm)}
+
+    /* Hero */
+    .hero{
+      position:relative; border-radius:calc(var(--radius) + 6px);
+      overflow:hidden; margin-bottom:18px;
+      background:#000;
+      aspect-ratio: 16 / 6;
+    }
+    .hero img{
+      width:100%; height:100%; object-fit:cover; display:block; ;
+      filter:saturate(1.1) contrast(1.1) opacity(.95);
+    }
+
+    /* Sub-brand logo badge (top-right in hero) */
+    .subbrand-badge{
+      position: absolute;
+    right: 16px;
+    bottom: 16px;
+    width: 84px;
+    aspect-ratio: 1 / 1;
+    padding: 4px;
+    background: rgba(255, 255, 255, .92);
+    border: 1px solid rgba(255, 255, 255, .55);
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    backdrop-filter: saturate(160%) blur(6px);
+    box-shadow: 2px -2px 10px #00000080;
+    }
+
+    .subbrand-badge img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: contrast(1.4) brightness(0.3);
+    }
+
+    /* Give the content below hero a little breathing room for the inset badge */
+    .booking{ margin-top:0; }
+
+    /* Floating cart + drawer */
+    .cart-fab{
+      position:fixed;
+      right:18px;
+      bottom:calc(18px + var(--cart-bottom, 0px));
+      z-index:90;
+      border-radius:999px;
+      padding:12px 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background:var(--brand);
+      color:var(--brand-ink);
+      border:1px solid #ff9c7e;
+      box-shadow:var(--shadow);
+      cursor:pointer;
+    }
+    .cart-fab svg{width:20px; height:20px}
+    .cart-count{
+      min-width:22px;
+      height:22px;
+      border-radius:999px;
+      background:#111318;
+      color:#fff;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:.75rem;
+      padding:0 7px;
+    }
+
+    .cart-overlay{
+      position:fixed;
+      inset:var(--cart-top, 0px) 0 var(--cart-bottom, 0px) 0;
+      background:var(--cart-overlay);
+      z-index:95;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease;
+    }
+    .cart-drawer{
+      position:fixed;
+      top:var(--cart-top, 0px);
+      bottom:var(--cart-bottom, 0px);
+      right:0;
+      height:auto;
+      width:min(420px, 92vw);
+      background:var(--cart-bg);
+      border-left:1px solid var(--line);
+      z-index:96;
+      transform:translateX(102%);
+      transition:transform .24s ease;
+      display:flex;
+      flex-direction:column;
+    }
+    .cart-drawer header{
+      position:sticky;
+      top:0;
+      background:var(--cart-bg);
+      border-bottom:1px solid var(--line);
+      padding:16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .cart-drawer header h3{margin:0; font-size:1.05rem}
+    .cart-close{
+      width:40px;
+      height:40px;
+      border-radius:10px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .cart-close svg{width:18px; height:18px}
+
+    .cart-body{
+      padding:16px;
+      overflow:auto;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .cart-empty{
+      border:1px dashed var(--line);
+      border-radius:12px;
+      padding:14px;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+    .cart-item{
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      box-shadow:var(--shadow-sm);
+    }
+    .cart-item .meta{display:flex; flex-direction:column; gap:6px}
+    .cart-item .meta .title{font-size:.95rem; font-weight:700}
+    .cart-item .meta .sub{font-size:.8rem; color:var(--muted)}
+    .cart-item .meta .price{font-size:.9rem; font-weight:700}
+    .cart-item .remove{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:10px;
+      padding:8px 10px;
+      cursor:pointer;
+      color:var(--muted);
+    }
+
+    .cart-footer{
+      border-top:1px solid var(--line);
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      background:var(--cart-bg);
+    }
+    .cart-totals{display:flex; align-items:center; justify-content:space-between; font-weight:700}
+
+    body.cart-open .cart-overlay{opacity:1; pointer-events:auto;}
+    body.cart-open .cart-drawer{transform:translateX(0);}
+
+    @media (max-width: 720px){
+      .subbrand-badge{right:12px; top:12px; width:56px}
+      .cart-fab{right:14px; bottom:calc(14px + var(--cart-bottom, 0px))}
+    }
+    /* If you want to preview "no header/footer" mode, uncomment these lines:
+    .site-header{display:none}
+    footer{display:none}
+    */
+
+    .link-icon {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  color:var(--accent);
+  cursor:pointer;
+  font-weight:500;
+  text-decoration:none;
+}
+.link-icon svg {
+  width:14px;
+  height:14px;
+}
+.link-icon:hover {
+  text-decoration:underline;
+}
+  
+    .hero-content{
+      position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end;
+      color:#fff; padding:28px; gap:10px;
+      background:var(--hero-grad);
+      
+    }
+    .property-chip{
+      display:inline-block; gap:10px; align-items:center;
+      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+      padding:6px 10px; border-radius:999px; backdrop-filter:saturate(160%) blur(2px);
+      font-size:.8rem;
+    }
+    .hero h1{margin:0; font-size:clamp(1.4rem,2.3vw,2rem); letter-spacing:.2px}
+    .hero .propertylink{display:flex; gap:14px; flex-wrap:wrap; font-size:.95rem; }
+    .hero .propertylink :hover{cursor:pointer; letter-spacing: .5px; 
+    
+    -webkit-transition: letter-spacing 200ms ease-in-out;
+    -ms-transition: letter-spacing 200ms ease-in-out;
+    transition: letter-spacing 200ms ease-in-out; }
+
+    /* Sticky Booking Bar */
+    .booking{
+      position:sticky; top:0; z-index:40; background:rgba(255,255,255,.82);
+      backdrop-filter:saturate(160%) blur(8px);
+      border-bottom:1px solid var(--line);
+    }
+    .booking .bar{
+      display:grid; gap:10px; grid-template-columns: 1.2fr 1fr 1fr auto;
+      padding:14px 0;
+    }
+    .field{
+      display:flex; gap:18px; align-items:center; background:var(--card);
+      border:1px solid var(--line); border-radius:10px; padding:4px 8px;
+      box-shadow:var(--shadow-sm);
+    }
+    .field label{font-size:.8rem; color:var(--muted)}
+    .field input, .field select{
+      border:none; outline:none; width:100%; background:transparent; font:inherit; color:inherit;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      border-radius:12px; padding:12px 18px; border:1px solid var(--brand);
+      background:var(--brand); color:var(--brand-ink); font-weight:400; cursor:pointer;
+      box-shadow:var(--shadow);
+    }
+    .btn.secondary{
+      background:#fff; color:var(--brand); border-color:var(--line);
+    }
+    .btn-secondary:hover{
+      background-color:#999; color:var(--brand); border-color:var(--line);
+    }
+    .btn:hover{background-color: #ff9c7e; -webkit-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear; color:#000; border-color: #ff9c7e;}
+
+    /* Tabs (CSS-only) */
+    .tabs{margin-top:30px}
+    .tablist{
+      display:flex; gap:4px; border-bottom:1px solid var(--line); overflow:auto; scrollbar-width:none;
+    }
+    .tablist::-webkit-scrollbar{display:none}
+    .tab{
+      position:relative; padding:6px 16px; border-radius:10px 10px 0 0;
+      background:#fff; color:#111; font-weight:300; cursor:pointer; user-select:none;
+      white-space:nowrap;
+    }
+    input[name="tab"]{display:none}
+    .panel{display:none; padding-block:28px}
+    /* Active state via :checked */
+    #t1:checked ~ .tablist label[for="t1"],
+    #t2:checked ~ .tablist label[for="t2"],
+    #t3:checked ~ .tablist label[for="t3"],
+    #t4:checked ~ .tablist label[for="t4"],
+    #t5:checked ~ .tablist label[for="t5"]{
+        
+      background:#fff; border-bottom:3px solid var(--line); border-bottom-color:#ff8d6b; font-weight:600;
+    }
+    #t1:checked ~ .panels #p1,
+    #t2:checked ~ .panels #p2,
+    #t3:checked ~ .panels #p3,
+    #t4:checked ~ .panels #p4,
+    #t5:checked ~ .panels #p5{display:block}
+
+    /* Cards grid */
+    .grid{
+      display:grid; gap:16px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .card{
+      grid-column: span 6;
+      background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+      overflow:hidden; box-shadow:var(--shadow-sm);
+      display:flex; flex-direction:column; /* two rows: top content + footer */
+    }
+    .top-row{display:flex; align-items:stretch}
+    .media{position:relative; background:#000; flex:0 0 40%; max-width:40%}
+    .media img{width:100%; height:240px; object-fit:cover; display:block}
+    .body{flex:1; padding:16px 16px 14px 16px; display:flex; flex-direction:column; gap:10px}
+    .divider{height:1px; background:var(--line);}
+    .footer-row{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:16px}
+    .price{font-weight:700}
+    .cta{display:flex; gap:10px}
+    .outline{background:#fff; color:var(--ink); border:1px solid var(--line)}
+    .badge{
+      position:absolute; top:12px; left:12px;
+      background:rgba(17,19,24,.9); color:#fff; font-size:.75rem; padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.15)
+    }
+    .body{padding:16px 16px 14px 16px; display:flex; flex-direction:column; gap:10px}
+    .title{font-weight:700; font-size:1.05rem; margin-bottom:2px}
+    .tags{display:flex; gap:8px; flex-wrap:wrap}
+    .tag{background:var(--chip); border:1px solid var(--line); border-radius:999px; padding:4px 10px; font-size:.8rem; color:#111}
+    .tag.is-hidden{display:none}
+    .tag.more{background:#fff; border:1px dashed var(--line); color:var(--muted); }
+    .desc{color:var(--muted); font-size:.95rem; display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; margin-bottom: 0px !important; margin-top: 10px !important;}
+    .fine{font-size:.8rem; color:var(--muted)}
+
+    /* Info sections */
+    .info{
+      display:grid; gap:16px; grid-template-columns: repeat(12, 1fr); margin-top:30px; margin-bottom:30px; 
+    }
+    .info-card{
+      grid-column: span 12;
+      background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+      padding:18px; box-shadow:var(--shadow-sm);
+    }
+    .info-card h3{margin:0 0 8px 0; font-size:1.05rem}
+    /* Gallery */
+    .gallery{position:relative}
+    .gallery-viewport{overflow:hidden; border-radius:12px;}
+    .gallery-track{display:flex; gap:0; scroll-behavior:smooth; transform:translateX(0);}
+    .gallery-slide{min-width:100%; flex:0 0 100%;}
+    .gallery-slide img{width:100%; height:360px; object-fit:cover; display:block; border-radius:12px}
+    .gallery-nav{position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; padding:0 6px; opacity:0; transition:opacity .2s ease}
+    .gallery:hover .gallery-nav{opacity:1}
+    .gallery-btn{display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.9); cursor:pointer; box-shadow:var(--shadow-sm)}
+    .gallery-btn svg{width:20px; height:20px}
+    .gallery-dots{display:flex; gap:6px; position:absolute; left:50%; transform:translateX(-50%); bottom:10px; background:rgba(17,19,24,.5); padding:6px 10px; border-radius:999px}
+    .gallery-dot{width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.5)}
+    .gallery-dot.is-active{background:#fff}
+    @media (max-width: 720px){
+      .gallery-slide img{height:240px}
+    }
+    .kv{display:grid; grid-template-columns: 1fr 3fr; gap:8px; font-size:.95rem}
+    .kv div{padding:6px 0; border-bottom:1px solid var(--line)}
+    .kv div:nth-child(odd){color:var(--muted)}
+
+    /* Footer */
+    footer{
+      border-top:1px solid var(--line); padding:30px 0; color:var(--muted); font-size:.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .booking .bar{grid-template-columns: 1fr 1fr 1fr; }
+      .btn.book{grid-column: 1 / -1}
+    }
+    @media (max-width: 720px){
+      .hero{aspect-ratio: 4 / 3}
+      .btn.book{grid-column: 1 / -1}
+      .top-row{flex-direction:column}
+      .media{max-width:100%; flex: 0 0 auto}
+      .media img{height:240px}
+      .info {grid-template-columns: repeat(6, 1fr);}
+        .grid{
+      grid-template-columns: repeat(6, 1fr);
+    }
+    info-card{
+      grid-column: span 6!important;}
+    .crumbs-left .here {display:none;
+    }}
+
+    /* Utility */
+    .spacer{height:10px}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" aria-label="Site header">
+    <div class="wrap">
+      <div class="bar">
+        <button class="icon-btn header-left" aria-label="Open menu">
+          <!-- Hamburger icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a href="#" class="header-center" aria-label="Home">
+          <img class="logo" src="https://cdn.spafinder.com/2025/06/Marriott-Bonvoy_idZOyVG2Zu_1.png" alt="Marriott Bonvoy" />
+        </a>
+
+        <button class="icon-btn header-right" aria-label="View cart">
+          <!-- Shopping cart icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 12.39a2 2 0 0 0 2 1.61h7.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <div class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <div class="crumbs-left">
+        <a href="#">Arizona</a><span class="sep">›</span>
+        <a href="#">Scottsdale</a><span class="sep">›</span>
+        <span class="here" aria-current="page">JW Marriott Scottsdale Camelback Inn</span>
+      </div>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=JW+Marriott+Scottsdale+Camelback+Inn+Resort+%26+Spa" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff8d6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 6-9 13-9 13S3 16 3 10a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Map
+      </a>
+    </nav>
+  </div>
+
+  <!-- Hero -->
+  <div class="wrap">
+    <section class="hero" aria-label="Property hero" >
+      <img src="https://images.trvl-media.com/lodging/1000000/20000/12900/12821/6339bbe3.jpg" alt="Resort pool area at sunset (placeholder)">
+      <div class="subbrand-badge" aria-label="JW Marriott">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/17/JWMarriott.svg/500px-JWMarriott.svg.png" alt="JW Marriott" />
+      </div>
+      <div class="hero-content">
+        <h1>JW Marriott Scottsdale Camelback Inn </h1>
+        <div class="propertylink">
+          <span>Visit Property Website ›</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Sticky Booking Bar -->
+  <div class="booking">
+    <div class="wrap">
+      <div class="bar" role="group" aria-label="Search availability">
+        <div class="field">
+          <div>
+            <label for="date">Date</label>
+            <input id="date" type="date" />
+          </div>
+        </div>
+        <div class="field">
+          <div>
+            <label for="adults">Adults</label>
+            <select id="adults" aria-label="Adults">
+              <option>1</option><option selected>2</option><option>3</option><option>4</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <div>
+            <label for="children">Children</label>
+            <select id="children" aria-label="Children">
+              <option selected>0</option><option>1</option><option>2</option><option>3</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn book" aria-label="Check availability">Check Availability</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="wrap tabs">
+    <!-- Radios drive visibility -->
+    <input type="radio" name="tab" id="t1" checked />
+    <input type="radio" name="tab" id="t2" />
+    <input type="radio" name="tab" id="t3" />
+    <input type="radio" name="tab" id="t4" />
+    <input type="radio" name="tab" id="t5" />
+
+    <div class="tablist" role="tablist" aria-label="Product categories">
+      
+        <label class="tab" id="tab-1" for="t1" role="tab" aria-controls="p1" aria-selected="true">Day Passes</label>
+      <label class="tab" id="tab-2" for="t2" role="tab" aria-controls="p2" aria-selected="false">Cabanas</label>
+      <label class="tab" id="tab-3" for="t3" role="tab" aria-controls="p3" aria-selected="false">Experiences</label>
+      <label class="tab" id="tab-4" for="t4" role="tab" aria-controls="p4" aria-selected="false">Events</label>
+      <label class="tab" id="tab-5" for="t5" role="tab" aria-controls="p5" aria-selected="false">Misc</label>
+    </div>
+
+    <div class="panels">
+      <!-- Day Passes -->
+      <section class="panel" id="p1" role="tabpanel" aria-labelledby="tab-1">
+        <div class="grid">
+          <!-- Card -->
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Date not available</span>
+                <img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-pool-0129-hor-clsc.jpg" alt="General pool area (placeholder)">
+              </div>
+              <div class="body">
+                <div class="title">Pool Day Pass</div>
+                <div class="tags">
+                  <span class="tag">Family Friendly</span>
+                  <span class="tag">Towels Included</span>
+                  <span class="tag">Lockers</span>
+                  <span class="tag">Showers</span>
+                  <span class="tag">+2 More</span>
+                </div>
+                <p class="desc">Enjoy full-day access to main pools and amenities. Seating is first-come, first-served. Availability varies by date. Cabana upgrades are available to purchase, along with food and beverage packages.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">$45–$85 <span class="muted">per person</span></div>
+                <div class="fine">Taxes & fees at checkout • No outside food</div>
+              </div>
+              <div class="cta">
+                <button class="btn outline muted" disabled>View Availability</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="top-row">
+              <div class="media"><span class="badge">Only a few left!</span>
+                <img src="https://cdn.ainvest.com/aigc/hxcmp/images/compress-1b025a929f47e002.png" alt="Spa pool (placeholder)">
+              </div>
+              
+              <div class="body">
+                <div class="title">Spa Pool Day Access</div>
+                <div class="tags">
+                  <span class="tag">21+ Only</span>
+                  <span class="tag">Locker & Showers</span>
+                </div>
+                <p class="desc">Quiet-zone pool access with locker rooms. Spa services not included; add treatments at checkout if available.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">$75–$120 <span class="muted">per person</span></div>
+                <div class="fine">Limited capacity • Subject to blackout dates</div>
+              </div>
+              <div class="cta">
+                <button class="btn" type="button" data-add-to-cart>Select</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Cabanas -->
+      <section class="panel" id="p2" role="tabpanel" aria-labelledby="tab-2">
+        <div class="grid">
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold Out</span>
+                <img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-private-pool-7917-hor-clsc.jpg" alt="Pool cabana (placeholder)">
+              </div>
+              <div class="body">
+                <div class="title">Poolside Cabana (Up to 6)</div>
+                <div class="tags">
+                  <span class="tag">Shaded Seating</span><span class="tag">Bottled Water</span><span class="tag">Dedicated Server</span>
+                </div>
+                <p class="desc">Private cabana with lounge seating. Add pre-arrival food & beverage after selection.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">$250–$450 <span class="muted">per cabana</span></div>
+                <div class="fine">Price varies by date & location</div>
+              </div>
+              <div class="cta">
+                <button class="btn outline muted" disabled>View Availability</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold Out</span>
+                <img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-pool-0129-hor-clsc.jpg?" alt="VIP cabana (placeholder)">
+              </div>
+              <div class="body">
+                <div class="title">VIP Cabana (Up to 8)</div>
+                <div class="tags"><span class="tag">Premium Location</span><span class="tag">Mini-Fridge</span></div>
+                <p class="desc">Larger cabana near main pool with extra seating and small fridge. Ideal for groups.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">$400–$750 <span class="muted">per cabana</span></div>
+                <div class="fine">Limited inventory</div>
+              </div>
+              <div class="cta">
+                <button class="btn outline muted" disabled>View Availability</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Experiences -->
+      <section class="panel" id="p3" role="tabpanel" aria-labelledby="tab-3">
+        <div class="grid">
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold Out</span>
+                <img src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?q=80&w=1200&auto=format&fit=crop" alt="Fitness class (placeholder)">
+              </div>
+              <div class="body">
+                <div class="title">Morning Fitness Class</div>
+                <div class="tags"><span class="tag">All Levels</span><span class="tag">45 min</span></div>
+                <p class="desc">Instructor-led session by the pool deck. Mats available; bring water.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">$25 <span class="muted">per guest</span></div>
+                <div class="fine">Add-on with day access or cabana</div>
+              </div>
+              <div class="cta">
+                <button class="btn outline muted" disabled>View Availability</button>
+              </div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold Out</span>
+                <img src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?q=80&w=1200&auto=format&fit=crop" alt="Wine tasting (placeholder)">
+              </div>
+              <div class="body">
+                <div class="title">Sunset Tasting</div>
+                <div class="tags"><span class="tag">21+ Only</span><span class="tag">Small Group</span></div>
+                <p class="desc">Guided tasting with light bites. Held on the terrace with mountain views.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">$65 <span class="muted">per guest</span></div>
+                <div class="fine">Limited seats • Weather permitting</div>
+              </div>
+              <div class="cta">
+                <button class="btn outline muted" disabled>View Availability</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Experiences -->
+      <section class="panel" id="p4" role="tabpanel" aria-labelledby="tab-4">
+        <div class="grid">
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold Out</span>
+                <img src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?q=80&w=1200&auto=format&fit=crop" alt="Fitness class (placeholder)">
+              </div>
+              <div class="body">
+                <div class="title">Morning Fitness Class</div>
+                <div class="tags"><span class="tag">All Levels</span><span class="tag">45 min</span></div>
+                <p class="desc">Instructor-led session by the pool deck. Mats available; bring water.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">$25 <span class="muted">per guest</span></div>
+                <div class="fine">Add-on with day access or cabana</div>
+              </div>
+              <div class="cta">
+                <button class="btn outline muted" disabled>View Availability</button>
+              </div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold Out</span>
+                <img src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?q=80&w=1200&auto=format&fit=crop" alt="Wine tasting (placeholder)">
+              </div>
+              <div class="body">
+                <div class="title">Sunset Tasting</div>
+                <div class="tags"><span class="tag">21+ Only</span><span class="tag">Small Group</span></div>
+                <p class="desc">Guided tasting with light bites. Held on the terrace with mountain views.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">$65 <span class="muted">per guest</span></div>
+                <div class="fine">Limited seats • Weather permitting</div>
+              </div>
+              <div class="cta">
+                <button class="btn outline muted" disabled>View Availability</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Experiences -->
+      <section class="panel" id="p5" role="tabpanel" aria-labelledby="tab-5">
+        <div class="grid">
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold Out</span>
+                <img src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?q=80&w=1200&auto=format&fit=crop" alt="Fitness class (placeholder)">
+              </div>
+              <div class="body">
+                <div class="title">Morning Fitness Class</div>
+                <div class="tags"><span class="tag">All Levels</span><span class="tag">45 min</span></div>
+                <p class="desc">Instructor-led session by the pool deck. Mats available; bring water.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">$25 <span class="muted">per guest</span></div>
+                <div class="fine">Add-on with day access or cabana</div>
+              </div>
+              <div class="cta">
+                <button class="btn outline muted" disabled>View Availability</button>
+              </div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="top-row">
+              <div class="media">
+                <span class="badge">Sold Out</span>
+                <img src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?q=80&w=1200&auto=format&fit=crop" alt="Wine tasting (placeholder)">
+              </div>
+              <div class="body">
+                <div class="title">Sunset Tasting</div>
+                <div class="tags"><span class="tag">21+ Only</span><span class="tag">Small Group</span></div>
+                <p class="desc">Guided tasting with light bites. Held on the terrace with mountain views.</p>
+              </div>
+            </div>
+            <div class="divider" role="separator" aria-hidden="true"></div>
+            <div class="footer-row">
+              <div>
+                <div class="price">$65 <span class="muted">per guest</span></div>
+                <div class="fine">Limited seats • Weather permitting</div>
+              </div>
+              <div class="cta">
+                <button class="btn outline muted" disabled>View Availability</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+
+      
+    </div>
+  </div>
+
+  <!-- Property Info / Policies -->
+  <div style="background-color: #f3f4f6; border: 1px solid var(--line); padding-top:20px; padding-bottom:20px; margin-top:30px; margin-bottom:0px!important;">
+    <div class="wrap"><h3>About the Property</h3></div>
+    <div class="wrap info">
+    <section class="info-card" style="grid-column: span 6;">
+      <h3>Property Overview</h3>
+      
+        <p>Discover JW Marriott Scottsdale Camelback Inn Resort & Spa, an award-winning resort near Camelback Mountain in Paradise Valley, AZ. Our luxury Scottsdale resort welcomes you with attentive service, deluxe amenities, heated outdoor pools, garden terraces, and desert trails in the Sonoran Desert. </p>
+        <p>Take our free shuttle to our 18-hole championship golf courses or treat yourself to a refreshing massage in our tranquil day spa. Savor gourmet dining experiences in our restaurants and bars, or relax in privacy with our resort's large casitas and suites boasting sophisticated furnishings and outdoor living spaces with views of nearby Camelback Mountain. Our pueblo-style, pet-friendly accommodations feature kitchenettes and an array of deluxe amenities, with a select few featuring private pools.</p>
+      
+    </section>
+
+    <section class="info-card" style="grid-column: span 6;">
+      <h3>Gallery</h3>
+      <div class="gallery" aria-label="Property image gallery">
+        <div class="gallery-viewport">
+          <div class="gallery-track" data-gallery-track>
+            <div class="gallery-slide"><img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-garden-0123-hor-clsc.jpg" alt="Terrace with wine"></div>
+            <div class="gallery-slide"><img src="https://cache.marriott.com/content/dam/marriott-renditions/PHXCB/phxcb-exterior-0057-hor-clsc.jpg" alt="Resort pool at sunset"></div>
+            <div class="gallery-slide"><img src="https://cache.marriott.com/is/image/marriotts7prod/jw-phxcb-9-2019-luxr-zzap-living-room:Classic-Hor?wid=1336&fit=constrain" alt="Spa interior"></div>
+            <div class="gallery-slide"><img src="https://cache.marriott.com/is/image/marriotts7prod/jw-phxcb-waterfall-cabana--31991:Classic-Hor?wid=1336&fit=constrain" alt="Mountain view"></div>
+          </div>
+        </div>
+        <div class="gallery-nav" aria-hidden="true">
+          <button class="gallery-btn" type="button" data-gallery-prev aria-label="Previous image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="gallery-btn" type="button" data-gallery-next aria-label="Next image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+        <div class="gallery-dots" role="tablist" aria-label="Image selectors" data-gallery-dots></div>
+      </div>
+    </section>
+     <section class="info-card" style="grid-column: span 6;">
+      <h3>Know Before You Go</h3>
+      <ul>
+        <li>Guest check-in with valid ID; outside food & speakers not permitted.</li>
+        <li>Prices vary by date; taxes & fees added at checkout.</li>
+        <li>All reservations subject to availability and weather conditions.</li>
+      </ul>
+    </section>
+
+    <section class="info-card" style="grid-column: span 6;">
+      <h3>Property Details</h3>
+      <div class="kv">
+        <div>Location</div><div>Scottsdale, Arizona</div>
+        <div>Hours</div><div>Pool 9:00–18:00 • Spa 8:00–18:00</div>
+        <div>Parking</div><div>Self-parking available (rates vary)</div>
+        <div>Contact</div><div>(000) 000-0000 • info@example.com</div>
+        <div>Restaurants</div>
+<div>
+  <a href="#" class="link-icon">
+    View Details
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+      <polyline points="15 3 21 3 21 9"/>
+      <line x1="10" y1="14" x2="21" y2="3"/>
+    </svg>
+  </a>
+</div>
+
+<div>Property Map</div>
+<div>
+  <a href="#" class="link-icon">
+    View Details
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+      <polyline points="15 3 21 3 21 9"/>
+      <line x1="10" y1="14" x2="21" y2="3"/>
+    </svg>
+  </a>
+</div>
+      </div>
+    </section>
+  </div></div>
+
+  <footer>
+    <div class="wrap">
+      <div>Marriott Daypass Portal Footer</div>
+    </div>
+  </footer>
+  <!-- Floating Cart (no header/footer scenario) -->
+  <button class="cart-fab" type="button" aria-label="Open cart" data-open-cart>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="9" cy="21" r="1"></circle>
+      <circle cx="20" cy="21" r="1"></circle>
+      <path d="M1 1h4l2.68 12.39a2 2 0 0 0 2 1.61h7.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+    <span>Cart</span>
+    <span class="cart-count" data-cart-count>0</span>
+  </button>
+  <div class="cart-overlay" data-cart-overlay aria-hidden="true"></div>
+  <aside class="cart-drawer" aria-label="Cart" aria-hidden="true">
+    <header>
+      <h3>Your Cart</h3>
+      <button class="cart-close" type="button" aria-label="Close cart" data-close-cart>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+    <div class="cart-body" data-cart-body>
+      <div class="cart-empty" data-cart-empty>Your cart is empty. Tap “Select” on an item to add it here.</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-totals"><span>Estimated Total</span><span data-cart-total>$0</span></div>
+      <button class="btn" type="button" aria-label="Checkout">Checkout</button>
+      <button class="btn secondary" type="button" data-close-cart>Continue Browsing</button>
+      <div class="fine">Demo cart UI • totals are estimated</div>
+    </div>
+  </aside>
+</body>
+  <script>
+    (function(){
+      // Floating cart drawer (demo)
+      const openBtns = document.querySelectorAll('[data-open-cart]');
+      const closeBtns = document.querySelectorAll('[data-close-cart]');
+      const overlay = document.querySelector('[data-cart-overlay]');
+      const cartBody = document.querySelector('[data-cart-body]');
+      const cartEmpty = document.querySelector('[data-cart-empty]');
+      const cartCount = document.querySelector('[data-cart-count]');
+      const cartTotal = document.querySelector('[data-cart-total]');
+
+      let cart = [];
+
+      // Keep cart UI from overlapping header/footer (dynamic insets)
+      const headerEl = document.querySelector('.site-header');
+      const footerEl = document.querySelector('footer');
+
+      function updateCartInsets(){
+  // Header inset should match how much of the header is actually visible
+  let headerInset = 0;
+  if (headerEl) {
+    const hr = headerEl.getBoundingClientRect();
+    // hr.bottom is the visible height when header scrolls away (goes to 0 / negative)
+    headerInset = Math.max(0, Math.min(hr.height, hr.bottom));
+  }
+
+  // Default: no footer inset unless footer is actually in view
+  let footerInset = 0;
+  if(footerEl){
+    const r = footerEl.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const isVisible = r.top < vh && r.bottom > 0;
+    if(isVisible){
+      const overlapFromBottom = Math.max(0, vh - r.top);
+      footerInset = Math.min(overlapFromBottom, r.height);
+    }
+  }
+
+  document.documentElement.style.setProperty('--cart-top', headerInset + 'px');
+  document.documentElement.style.setProperty('--cart-bottom', (footerInset + 10) + 'px');
+}
+
+      updateCartInsets();
+      window.addEventListener('resize', updateCartInsets);
+      window.addEventListener('scroll', updateCartInsets, { passive:true });
+
+      function moneyToNumber(str){
+        // Parses things like "$75–$120" or "$65" -> returns first numeric value
+        const m = (str||'').replace(/,/g,'').match(/\$\s*([0-9]+(?:\.[0-9]+)?)/);
+        return m ? Number(m[1]) : 0;
+      }
+
+      function formatMoney(n){
+        return `$${Math.round(n).toLocaleString()}`;
+      }
+
+      function openCart(){
+        updateCartInsets();
+        document.body.classList.add('cart-open');
+      }
+      function closeCart(){
+        document.body.classList.remove('cart-open');
+      }
+
+      openBtns.forEach(b=>b.addEventListener('click', openCart));
+      closeBtns.forEach(b=>b.addEventListener('click', closeCart));
+      overlay && overlay.addEventListener('click', closeCart);
+      window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeCart(); });
+
+      function renderCart(){
+        if(!cartBody) return;
+
+        // Clear existing items (keep empty node)
+        cartBody.querySelectorAll('[data-cart-item]').forEach(n=>n.remove());
+
+        const count = cart.length;
+        if(cartCount) cartCount.textContent = String(count);
+        if(cartEmpty) cartEmpty.style.display = count ? 'none' : 'block';
+
+        let total = 0;
+        cart.forEach((item, idx)=>{
+          total += item.price;
+
+          const row = document.createElement('div');
+          row.className = 'cart-item';
+          row.setAttribute('data-cart-item','');
+
+          row.innerHTML = `
+            <div class="meta">
+              <div class="title">${item.title}</div>
+              <div class="sub">${item.category}</div>
+              <div class="price">${formatMoney(item.price)}</div>
+            </div>
+            <button class="remove" type="button" aria-label="Remove item">Remove</button>
+          `;
+
+          row.querySelector('.remove').addEventListener('click', ()=>{
+            cart.splice(idx,1);
+            renderCart();
+          });
+
+          cartBody.appendChild(row);
+        });
+
+        if(cartTotal) cartTotal.textContent = formatMoney(total);
+      }
+
+      // Add-to-cart from any button with data-add-to-cart inside a card
+      document.addEventListener('click', (e)=>{
+        const btn = e.target && e.target.closest && e.target.closest('[data-add-to-cart]');
+        if(!btn) return;
+
+        const card = btn.closest('.card');
+        if(!card) return;
+
+        const titleEl = card.querySelector('.title');
+        const priceEl = card.querySelector('.price');
+        const title = titleEl ? titleEl.textContent.trim() : 'Item';
+        const priceText = priceEl ? priceEl.textContent : '';
+        const price = moneyToNumber(priceText);
+
+        // Determine category from the active tab label (best-effort)
+        const activeLabel = document.querySelector('.tablist label[for="' + document.querySelector('input[name="tab"]:checked')?.id + '"]');
+        const category = activeLabel ? activeLabel.textContent.trim() : 'Selection';
+
+        cart.push({ title, price, category });
+        renderCart();
+        openCart();
+      });
+
+      renderCart();
+      const track = document.querySelector('[data-gallery-track]');
+      if(!track) return;
+      const slides = Array.from(track.children);
+      let index = 0;
+      const prev = document.querySelector('[data-gallery-prev]');
+      const next = document.querySelector('[data-gallery-next]');
+      const dotsWrap = document.querySelector('[data-gallery-dots]');
+
+      function update(){
+        const x = -index * 100;
+        track.style.transform = `translateX(${x}%)`;
+        if(dotsWrap){
+          dotsWrap.querySelectorAll('.gallery-dot').forEach((d,i)=>{
+            d.classList.toggle('is-active', i===index);
+          });
+        }
+      }
+      function go(n){ index = (n + slides.length) % slides.length; update(); }
+
+      // Build dots
+      if(dotsWrap){
+        slides.forEach((_,i)=>{
+          const dot = document.createElement('button');
+          dot.className = 'gallery-dot';
+          dot.type = 'button';
+          dot.setAttribute('aria-label', `Show image ${i+1}`);
+          dot.addEventListener('click', ()=> go(i));
+          dotsWrap.appendChild(dot);
+        });
+      }
+
+      prev && prev.addEventListener('click', ()=> go(index-1));
+      next && next.addEventListener('click', ()=> go(index+1));
+      update();
+
+      // Swipe support
+      let startX=null;
+      track.addEventListener('touchstart', (e)=>{startX=e.touches[0].clientX;}, {passive:true});
+      track.addEventListener('touchmove', (e)=>{
+        if(startX===null) return; const dx = e.touches[0].clientX - startX; if(Math.abs(dx)>50){
+          go(index + (dx<0?1:-1)); startX=null;
+        }
+      }, {passive:true});
+
+      // One-line tags with +x more
+      function collapseTags(){
+        const containers = document.querySelectorAll('.tags');
+        containers.forEach(tags=>{
+          // Remove any previous chip and unhide everything
+          tags.querySelectorAll('.tag.more').forEach(m=>m.remove());
+          const tagEls = Array.from(tags.querySelectorAll('.tag'));
+          tagEls.forEach(t=>t.classList.remove('is-hidden'));
+          if(tagEls.length===0) return;
+
+          const firstTop = tagEls[0].offsetTop;
+          let overflow = [];
+
+          // Hide anything that wrapped to a new line initially
+          for(const el of tagEls){
+            if(el.offsetTop>firstTop){ el.classList.add('is-hidden'); overflow.push(el); }
+          }
+
+          // If nothing wrapped, nothing to do
+          if(overflow.length===0) return;
+
+          // Create the +x chip
+          const chip = document.createElement('span');
+          chip.className = 'tag more';
+          chip.textContent = `+${overflow.length}`;
+          tags.appendChild(chip);
+
+          // Ensure the chip itself sits on the first line. If it wraps, hide last visible tags until it fits.
+          // Build list of currently visible (non-hidden, non-chip) tags from right-to-left
+          const visibles = Array.from(tags.querySelectorAll('.tag'))
+            .filter(el=>!el.classList.contains('is-hidden') && !el.classList.contains('more'));
+
+          // While the chip is on the second line, hide the last visible tag and increment the count
+          while(chip.offsetTop>firstTop && visibles.length){
+            const last = visibles.pop();
+            last.classList.add('is-hidden');
+            overflow.push(last);
+            chip.textContent = `+${overflow.length}`;
+          }
+        });
+      }
+      // Run on load and on resize (debounced)
+      collapseTags();
+      let _rz;
+      window.addEventListener('resize', ()=>{ clearTimeout(_rz); _rz = setTimeout(collapseTags, 150); });
+    })();
+  </script>
+</html>
